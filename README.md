@@ -8,10 +8,3 @@ Here's how you do it
 
 Blueprints are at
 https://assemblystorm-knowledgebase.github.io/blueprints/
-
-
-testing automerge
-.
-
-
-do a barrel roll
