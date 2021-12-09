@@ -10,9 +10,12 @@ jobs:
     steps:
     - name: Check for blacklisted edits
       run: |
-        if grep -q .github $(git diff --name-only $(git rev-parse --abbrev-ref HEAD) $(git merge-base $(git rev-parse --abbrev-ref HEAD) main)); 
-            then exit(0);
-        else exit(1);
+        #!/bin/bash
+        diffs=$(git diff --name-only $(git rev-parse --abbrev-ref HEAD) $(git merge-base $(git rev-parse --abbrev-ref HEAD) main))
+        if grep -q .github <<<$diffs; then
+          echo .github edit found
+          exit(1);
+        else exit(0);
         fi
   automerge:  # https://github.com/marketplace/actions/merge-pull-requests-automerge-action
     needs: checkEdits
