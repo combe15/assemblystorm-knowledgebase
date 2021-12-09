@@ -5,7 +5,17 @@ on:
     paths-ignore: ['.github/**/*', '.github']
 
 jobs:
+  checkEdits:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check for blacklisted edits
+      run: |
+        if grep -q .github $(git diff --name-only $(git rev-parse --abbrev-ref HEAD) $(git merge-base $(git rev-parse --abbrev-ref HEAD) main)); 
+            then exit(0);
+        else exit(1);
+        fi
   automerge:  # https://github.com/marketplace/actions/merge-pull-requests-automerge-action
+    needs: checkEdits
     runs-on: ubuntu-latest
     steps:
       - name: automerge
