@@ -4,3 +4,5 @@ ready:
 
 do not automerge:
 - any: ['.github/**/*', '.github']
+
+#this comment should not merge
