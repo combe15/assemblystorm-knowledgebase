@@ -18,6 +18,8 @@ jobs:
     - name: Check for blacklisted edits
       run: |
         #!/bin/bash
+        git branch
+        git status
         diffs=$(git diff --name-only $(git rev-parse --abbrev-ref HEAD) $(git merge-base $(git rev-parse --abbrev-ref HEAD) main))
         if grep -q .github <<<$diffs; then
           exit 1;
