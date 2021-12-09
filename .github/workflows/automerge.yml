@@ -8,6 +8,13 @@ jobs:
   checkEdits:
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout pull request branch on forked repo
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        ref: ${{github.event.pull_request.head.ref}}
+        repository: ${{github.event.pull_request.head.repo.full_name}}
+        token: ${{ github.token }}
     - name: Check for blacklisted edits
       run: |
         #!/bin/bash
